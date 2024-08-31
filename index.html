@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Working Contact Form with EmailJS</title>
+    <!-- EmailJS Library -->
+    <script src="https://smtpjs.com/v3/smtp.js">
+    </script>
+
+    
+</head>
+<body>
+    <section class="contact" id="contact">
+        <h2 class="heading">Contact <span>Me</span></h2>
+        <form id="contact-form" onsubmit="sendEmail(); return false;">
+            <div class="input-box">
+                <input type="text" name="name" placeholder="Full Name" required id="name">
+                <input type="email" name="email" placeholder="Email Address" required id="email">
+            </div>
+            <div class="input-box">
+                <input type="tel" name="mobile" placeholder="Mobile Number" required id="number" >
+                <input type="text" name="subject" placeholder="Subject" required id="subject">
+            </div>
+            <textarea id="message" name="message" cols="30" rows="10" placeholder="Type Your Message Here...." required></textarea>
+            <input type="submit" value="Send Message" class="btn">
+        </form>
+    </section>
+   <script>
+    const form = document.querySelector("form");
+const fullname = document.getElementById("name");
+const email = document.getElementById("email");
+const subject = document.getElementById("subject");
+const number = document.getElementById("number"); 
+const message = document.getElementById("message");
+
+function sendEmail() {
+    const bodyMessage = `Full Name: ${fullname.value}<br>Email: ${email.value}<br>Phone Number: ${number.value}<br>Message: ${message.value}`;
+    Email.send({
+        Host: "smtp.elasticemail.com",
+        Username: "bishtc933@gmail.com",
+        Password: "219486981C8FC1A89C4A3A3A2D831B57842E", // Note: Exposing credentials in client-side code is insecure
+        To: 'bishtc933@gmail.com',
+        From: "bishtc933@gmail.com",
+        Subject: subject.value,
+        Body: bodyMessage
+    }).then(
+        response => alert(response)
+    ).catch(
+        error => alert("Failed to send email: " + error)
+    );
+}
+
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    sendEmail();
+});
+
+   </script>
+</body>
+</html>
